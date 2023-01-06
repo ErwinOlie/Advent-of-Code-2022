@@ -1,4 +1,8 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+package nl.erwinolie.`Advent-of-Code-2022`.`14 - Regolith Reservoir`
+
+import nl.erwinolie.extensions.input
+
+val input = input()
     .lines()
     .map { it.split(" -> ").map { Point(it.split(",")[0].toInt(), it.split(",")[1].toInt()) } }
 
