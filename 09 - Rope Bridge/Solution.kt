@@ -1,5 +1,6 @@
 package nl.erwinolie.`Advent-of-Code-2022`.`09 - Rope Bridge`
 
+import nl.erwinolie.extensions.Point2D
 import kotlin.math.abs
 import nl.erwinolie.extensions.input
 
@@ -12,7 +13,7 @@ val inputSteps = input().lines()
 
 ///////
 
-var rope = (0..9).map { Point(0, 0) }.toMutableList()
+var rope = (0..9).map { Point2D(0, 0) }.toMutableList()
 val trace = rope.map { mutableListOf(it) }
 
 fun main() {
@@ -20,7 +21,7 @@ fun main() {
         moveHead(it)
         rope.indices.asSequence()
             .filter { i -> i != 0 }
-            .filter { i -> !rope[i].isTouching(rope[i-1]) }
+            .filter { i -> rope[i] !in rope[i-1].neighbours8() }
             .forEach { i -> moveTail(i) }
     }
 
@@ -36,7 +37,7 @@ fun main() {
 }
 
 fun moveHead(movement: Movement) {
-    rope[0] = Point(rope[0].x + movement.dx, rope[0].y + movement.dy)
+    rope[0] = Point2D(rope[0].x + movement.dx, rope[0].y + movement.dy)
     trace[0].add(rope[0])
 }
 
@@ -46,14 +47,14 @@ fun moveTail(index: Int) {
 
     val dx = abs(head.x - tail.x)
     val dy = abs(head.y - tail.y)
-    if ((dx == 2 && dy == 0) || (dx == 0 && dy == 2) || (dx == 2 && dy == 2)) {
-        rope[index] = Point(tail.x + (head.x - tail.x) / 2, tail.y + (head.y - tail.y) / 2)
+    if ((dx == 2L && dy == 0L) || (dx == 0L && dy == 2L) || (dx == 2L && dy == 2L)) {
+        rope[index] = tail + Point2D((head.x - tail.x) / 2, (head.y - tail.y) / 2)
     }
-    else if ((dx == 2 && dy == 1)) {
-        rope[index] = Point(tail.x + (head.x - tail.x) / 2, head.y)
+    else if (dx == 2L && dy == 1L) {
+        rope[index] = Point2D(tail.x + (head.x - tail.x) / 2, head.y)
     }
-    else if ((dx == 1 && dy == 2)) {
-        rope[index] = Point(head.x, tail.y + (head.y - tail.y) / 2)
+    else if (dx == 1L && dy == 2L) {
+        rope[index] = Point2D(head.x, tail.y + (head.y - tail.y) / 2)
     }
     trace[index].add(rope[index])
 }
@@ -68,10 +69,3 @@ enum class Movement(val abbrev: String, val dx: Int, val dy: Int) {
 }
 fun String.toMovement() =
     Movement.values().find { it.abbrev == this }!!
-
-///////
-
-data class Point(val x: Int, val y: Int) {
-    fun isTouching(other: Point) =
-        abs(x - other.x) <= 1 && abs(y - other.y) <= 1
-}
