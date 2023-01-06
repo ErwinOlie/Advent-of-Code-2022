@@ -1,6 +1,9 @@
-import kotlin.streams.toList
+package nl.erwinolie.`Advent-of-Code-2022`.`08 - Treetop Tree House`
 
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+import kotlin.streams.toList
+import nl.erwinolie.extensions.input
+
+val input = input()
 
 val height = input.lines().size
 val width = input.lines()[0].length
@@ -51,7 +54,8 @@ fun isVisibleFromTheBottom(x: Int, y: Int, z: Int) =
     else (y + 1 until height).maxOf { grid[it][x] } < z
 
 fun getScenicScore(x: Int, y: Int, z: Int) =
-    listOf(getScenicScoreTop(x, y, z).toLong(),
+    listOf(
+        getScenicScoreTop(x, y, z).toLong(),
         getScenicScoreRight(x, y, z).toLong(),
         getScenicScoreBottom(x, y, z).toLong(),
         getScenicScoreLeft(x, y, z).toLong())
