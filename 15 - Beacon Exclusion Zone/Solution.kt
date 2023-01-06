@@ -1,10 +1,13 @@
+package nl.erwinolie.`Advent-of-Code-2022`.`15 - Beacon Exclusion Zone`
+
 import java.math.BigInteger
 import kotlin.math.abs
+import nl.erwinolie.extensions.input
 
 var minX = 0L
 var maxX = 0L
 var maxDistance = 0L
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+val input = input()
     .lines()
     .map {
         val (sensorX, sensorY, beaconX, beaconY) =
