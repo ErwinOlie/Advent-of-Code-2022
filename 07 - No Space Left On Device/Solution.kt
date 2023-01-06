@@ -1,5 +1,8 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
-val terminal = input.lines()
+package nl.erwinolie.`Advent-of-Code-2022`.`07 - No Space Left On Device`
+
+import nl.erwinolie.extensions.input
+
+val terminal = input().lines()
 
 interface DiskItem
 data class Directory(val path: List<String>) : DiskItem
