@@ -1,4 +1,8 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+package nl.erwinolie.`Advent-of-Code-2022`.`06 - Tuning Trouble`
+
+import nl.erwinolie.extensions.input
+
+val input = input()
 
 fun main() {
     val answer1 = input
