@@ -1,6 +1,9 @@
-import java.lang.Math.abs
+package nl.erwinolie.`Advent-of-Code-2022`.`10 - Cathode-Ray Tube`
 
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+import nl.erwinolie.extensions.input
+import kotlin.math.abs
+
+val input = input()
 
 val clockTicks = sequence {
     var registerX = 1
@@ -19,7 +22,7 @@ val clockTicks = sequence {
 
 fun main() {
     val answer1 = clockTicks
-        .filterIndexed { index, registerX -> ((index + 1) - 20) % 40 == 0 }
+        .filterIndexed { index, _ -> ((index + 1) - 20) % 40 == 0 }
         .mapIndexed { index, registerX -> (20 + index * 40) * registerX }
         .sum()
     println(answer1)
