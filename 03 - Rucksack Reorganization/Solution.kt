@@ -1,4 +1,6 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+package nl.erwinolie.`Advent-of-Code-2022`.`03 - Rucksack Reorganization`
+
+import nl.erwinolie.extensions.input
 
 fun toPriority(c : Char) =
     if (c.isLowerCase()) {
@@ -8,13 +10,13 @@ fun toPriority(c : Char) =
     }
 
 fun main() {
-    val answer1 = input.lines()
+    val answer1 = input().lines()
         .map { Pair(it.substring(0, it.length/2), it.substring(it.length/2, it.length)) }
         .flatMap { it.first.toSet().intersect(it.second.toSet()) }
         .sumOf(::toPriority)
     println(answer1)
 
-    val answer2 = input.lines()
+    val answer2 = input().lines()
         .windowed(3, 3)
         .flatMap { it[0].toSet().intersect(it[1].toSet().intersect(it[2].toSet())) }
         .sumOf(::toPriority)
