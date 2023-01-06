@@ -1,13 +1,14 @@
 package nl.erwinolie.`Advent-of-Code-2022`.`14 - Regolith Reservoir`
 
+import nl.erwinolie.extensions.Point2D
 import nl.erwinolie.extensions.input
 
 val input = input()
     .lines()
-    .map { it.split(" -> ").map { Point(it.split(",")[0].toInt(), it.split(",")[1].toInt()) } }
+    .map { it.split(" -> ").map { Point2D(it.split(",")[0].toLong(), it.split(",")[1].toLong()) } }
 
-val rocks = mutableSetOf<Point>()
-var depth = 0
+val rocks = mutableSetOf<Point2D>()
+var depth = 0L
 
 fun initRocks() {
     input.forEach { rockStructure ->
@@ -28,7 +29,7 @@ fun initRocks() {
                 if (y > path.second.y) {
                     y--
                 }
-                rocks.add(Point(x, y))
+                rocks.add(Point2D(x, y))
                 if (y > depth) {
                     depth = y
                 }
@@ -44,14 +45,14 @@ fun main() {
 }
 
 fun answer1(): Int {
-    val sands = mutableSetOf<Point>()
+    val sands = mutableSetOf<Point2D>()
     while (true) {
-        var sand = Point(500, 0)
+        var sand = Point2D(500, 0)
         while (true) {
             val nextPosCandidates = listOf(
-                Point(sand.x, sand.y + 1),
-                Point(sand.x - 1, sand.y + 1),
-                Point(sand.x + 1, sand.y + 1)
+                Point2D(sand.x, sand.y + 1),
+                Point2D(sand.x - 1, sand.y + 1),
+                Point2D(sand.x + 1, sand.y + 1)
             ).filter { it !in rocks && it !in sands }
             if (nextPosCandidates.isEmpty()) {
                 sands += sand
@@ -71,15 +72,15 @@ fun answer1(): Int {
 }
 
 fun answer2(): Int {
-    val sands = mutableSetOf<Point>()
+    val sands = mutableSetOf<Point2D>()
     val floorDepth = depth + 2
     while (true) {
-        var sand = Point(500, 0)
+        var sand = Point2D(500, 0)
         while (true) {
             val nextPosCandidates = listOf(
-                Point(sand.x, sand.y + 1),
-                Point(sand.x - 1, sand.y + 1),
-                Point(sand.x + 1, sand.y + 1)
+                Point2D(sand.x, sand.y + 1),
+                Point2D(sand.x - 1, sand.y + 1),
+                Point2D(sand.x + 1, sand.y + 1)
             ).filter { it !in rocks && it !in sands }
             if (nextPosCandidates.isEmpty()) {
                 sands += sand
@@ -92,11 +93,9 @@ fun answer2(): Int {
                 break
             }
         }
-        if (sand.y == 0) {
+        if (sand.y == 0L) {
             break
         }
     }
     return sands.size
 }
-
-data class Point(val x: Int, val y: Int)
