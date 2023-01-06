@@ -1,3 +1,6 @@
+package nl.erwinolie.`Advent-of-Code-2022`.`17 - Pyroclastic Flow`
+
+import nl.erwinolie.extensions.input
 
 typealias Rock = List<List<Char>>
 class RockStuff {
@@ -36,7 +39,7 @@ class RockStuff {
 }
 
 class GasStuff {
-    private val jetPattern = object {}.javaClass.getResource("input.txt")!!.readText()
+    private val jetPattern = input()
     var nextGasJetPointer = 0
 
     fun nextGasJet(): Char {
