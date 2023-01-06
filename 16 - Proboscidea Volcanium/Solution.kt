@@ -1,7 +1,11 @@
+package nl.erwinolie.`Advent-of-Code-2022`.`16 - Proboscidea Volcanium`
+
+import nl.erwinolie.extensions.input
+
 import kotlin.math.max
 import kotlin.math.min
 
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+val input = input()
 val inputRegex = "^Valve (.+) has flow rate=(\\d+); tunnels? leads? to valves? (.+)$".toRegex()
 
 lateinit var valves: Map<String, Valve>
