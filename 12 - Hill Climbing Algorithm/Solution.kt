@@ -55,7 +55,7 @@ fun findLowestDistance(end: Point2D, starts: List<Point2D>): Int {
 
     while (toVisit.size > 0) {
         val closest = toVisit.sortedBy { distances[it] }.first()
-        closest.neighbours()
+        closest.neighbours4()
             .filter { it.isInBoundedBoxInclusive(0, 0, map[0].size - 1L, map.size - 1L) }
             .filter { heightMap[it.y.toInt()][it.x.toInt()] >= heightMap[closest.y.toInt()][closest.x.toInt()] - 1 }
             .forEach {
