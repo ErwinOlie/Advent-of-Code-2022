@@ -1,12 +1,15 @@
+package nl.erwinolie.`Advent-of-Code-2022`.`11 - Monkey in the Middle`
+
 import java.lang.IllegalStateException
 import java.math.BigInteger
 import kotlin.text.RegexOption.MULTILINE
+import nl.erwinolie.extensions.input
 
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+val input = input()
 
 val monkeys = input.split("\\R\\R".toRegex())
     .map {
-        val regex = """Monkey (\d+):
+        val regex = """nl.erwinolie.`Advent-of-Code-2022`.`11 - Monkey in the Middle`.Monkey (\d+):
   Starting items: (.+)$
   Operation: new = (.+)$
   Test: divisible by (\d+)$
@@ -43,7 +46,7 @@ fun main() {
         .take(2)
         .map { it.inspectedItemsCount }
         .reduce { acc, inspectedItemsCount -> acc * inspectedItemsCount }
-    println(answer) // see r.68 for switching between answer1 and answer2
+    println(answer)
 }
 
 class Monkey(
@@ -65,7 +68,7 @@ class Monkey(
             "*" -> a.multiply(b)
             "+" -> a.plus(b)
             else -> throw IllegalStateException()
-        }.remainder(megadivider) // / 3 for answer 1, megadivider for answer 2
+        }.remainder(megadivider)
     }
 
     fun checkAndThrow(item: BigInteger) {
