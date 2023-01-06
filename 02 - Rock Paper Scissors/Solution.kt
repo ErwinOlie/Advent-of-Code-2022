@@ -1,4 +1,6 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+package nl.erwinolie.`Advent-of-Code-2022`.`02 - Rock Paper Scissors`
+
+import nl.erwinolie.extensions.input
 
 const val win = 6
 const val draw = 3
@@ -9,7 +11,7 @@ const val paper = 2
 const val scissors = 3
 
 fun main() {
-    val answer1 = input
+    val answer1 = input()
         .lines()
         .sumOf {
             mapOf(
@@ -26,7 +28,7 @@ fun main() {
         }
     println(answer1)
 
-    val answer2 = input
+    val answer2 = input()
         .lines()
         .sumOf {
             mapOf(
