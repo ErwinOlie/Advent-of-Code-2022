@@ -1,5 +1,6 @@
 package nl.erwinolie.`Advent-of-Code-2022`.`17 - Pyroclastic Flow`
 
+import nl.erwinolie.extensions.Point2D
 import nl.erwinolie.extensions.input
 
 typealias Rock = List<List<Char>>
@@ -47,14 +48,6 @@ class GasStuff {
         nextGasJetPointer = (nextGasJetPointer + 1) % jetPattern.length
         return nextGasJet
     }
-}
-
-data class Point(val x: Int, val y: Int) {
-    fun move(delta: Point) =
-            Point(x + delta.x, y + delta.y)
-
-    fun down() =
-        Point(x, y - 1)
 }
 
 data class State(
@@ -145,7 +138,7 @@ class Chamber(
 
     private fun dropRock() {
         val rock = rockStuff.nextRock()
-        var rockPosition = Point(2, chamber.size + 3)
+        var rockPosition = Point2D(2, chamber.size + 3)
         while (true) {
             rockPosition = tryPushWithGas(rock, rockPosition)
             if (!canRockFallDown(rock, rockPosition)) {
@@ -157,7 +150,7 @@ class Chamber(
 //        this.print()
     }
 
-    private fun tryPushWithGas(rock: Rock, position: Point): Point {
+    private fun tryPushWithGas(rock: Rock, position: Point2D): Point2D {
         val gasJet = gasStuff.nextGasJet()
         val dx = if (gasJet == '<') -1 else 1
         if (position.x + dx < 0) {
@@ -174,16 +167,16 @@ class Chamber(
                 if (position.y + rockY >= chamber.size) {
                     return@forEachIndexed
                 }
-                if (chamber[position.y + rockY][position.x + dx + rockX] == '.') {
+                if (chamber[position.y.toInt() + rockY][position.x.toInt() + dx + rockX] == '.') {
                     return@forEachIndexed
                 }
                 return@tryPushWithGas position
             }
         }
-        return position.move(Point(dx, 0))
+        return position + Point2D(dx, 0)
     }
 
-    private fun canRockFallDown(rock: Rock, position: Point): Boolean {
+    private fun canRockFallDown(rock: Rock, position: Point2D): Boolean {
         if (position.y <= 0) {
             return false
         }
@@ -195,7 +188,7 @@ class Chamber(
                 if (position.down().y + rockY >= chamber.size) {
                     return@forEachIndexed
                 }
-                if (chamber[position.down().y + rockY][position.x + rockX] == '.') {
+                if (chamber[position.down().y.toInt() + rockY][position.x.toInt() + rockX] == '.') {
                     return@forEachIndexed
                 }
                 return@canRockFallDown false
@@ -204,14 +197,14 @@ class Chamber(
         return true
     }
 
-    private fun settleRock(rock: Rock, position: Point) {
+    private fun settleRock(rock: Rock, position: Point2D) {
         while (position.y + (rock.size - 1) >= chamber.size) {
             chamber.add(mutableListOf('.', '.', '.', '.', '.', '.', '.'))
         }
         rock.forEachIndexed { rockY, rockRow ->
             rockRow.forEachIndexed { rockX, rockChar ->
                 if (rockChar == '#') {
-                    chamber[position.y + rockY][position.x + rockX] = '#'
+                    chamber[position.y.toInt() + rockY][position.x.toInt() + rockX] = '#'
                 }
             }
         }
