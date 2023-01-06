@@ -1,7 +1,10 @@
+package nl.erwinolie.`Advent-of-Code-2022`.`13 - Distress Signal`
+
 import java.lang.IllegalStateException
 import java.lang.Integer.max
+import nl.erwinolie.extensions.input
 
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+val input = input()
 
 fun main() {
     val answer1 = input
