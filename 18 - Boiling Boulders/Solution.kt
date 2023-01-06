@@ -2,10 +2,11 @@ package nl.erwinolie.`Advent-of-Code-2022`.`18 - Boiling Boulders`
 
 import nl.erwinolie.extensions.Point3D
 import nl.erwinolie.extensions.input
+import nl.erwinolie.extensions.toPoint3D
 
 val cubes = input().lines()
     .map { "^(\\d+),(\\d+),(\\d+)$".toRegex().find(it)!! }
-    .map(Point3D::of)
+    .map { it.toPoint3D() }
 
 fun Point3D.adjecentPoints(): List<Point3D> =
     listOf(
