@@ -1,8 +1,9 @@
+package nl.erwinolie.`Advent-of-Code-2022`.`12 - Hill Climbing Algorithm`
+
 import kotlin.streams.toList
+import nl.erwinolie.extensions.input
 
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
-
-val map = input.lines()
+val map = input().lines()
     .map { it.chars().toList() }
     .toList()
 
