@@ -1,7 +1,9 @@
-import kotlin.math.abs
+package nl.erwinolie.`Advent-of-Code-2022`.`09 - Rope Bridge`
 
-val inputSteps = object {}.javaClass.getResource("input.txt")!!.readText()
-    .lines()
+import kotlin.math.abs
+import nl.erwinolie.extensions.input
+
+val inputSteps = input().lines()
     .flatMap {
         val (direction, amount) = it.split(' ')
         generateSequence { direction }.take(amount.toInt())
