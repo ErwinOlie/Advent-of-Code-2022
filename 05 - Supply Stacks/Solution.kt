@@ -1,5 +1,8 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
-    .lines()
+package nl.erwinolie.`Advent-of-Code-2022`.`05 - Supply Stacks`
+
+import nl.erwinolie.extensions.input
+
+val input = input().lines()
 
 val crates = input
     .takeWhile { it.isNotBlank() }
