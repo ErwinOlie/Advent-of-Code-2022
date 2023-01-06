@@ -1,7 +1,7 @@
 package nl.erwinolie.`Advent-of-Code-2022`.`15 - Beacon Exclusion Zone`
 
+import nl.erwinolie.extensions.Point2D
 import java.math.BigInteger
-import kotlin.math.abs
 import nl.erwinolie.extensions.input
 
 var minX = 0L
@@ -13,7 +13,7 @@ val input = input()
         val (sensorX, sensorY, beaconX, beaconY) =
             "^Sensor at x=(-?\\d+), y=(-?\\d+): closest beacon is at x=(-?\\d+), y=(-?\\d+)\$"
                 .toRegex().find(it)!!.destructured
-        SensorBeaconPair(Point(sensorX.toLong(), sensorY.toLong()), Point(beaconX.toLong(), beaconY.toLong()))
+        SensorBeaconPair(Point2D(sensorX.toLong(), sensorY.toLong()), Point2D(beaconX.toLong(), beaconY.toLong()))
     }
 
 fun init() {
@@ -42,12 +42,12 @@ fun main() {
     init()
     var answer1 = 0
     for (x in minX..maxX) {
-        val p = Point(x, 2000000)
+        val p = Point2D(x, 2000000)
         if (input.any { it.beacon == p }) {
             continue
         }
         for (sensorBeaconPair in input) {
-            if (sensorBeaconPair.distance() >= sensorBeaconPair.sensor.distanceTo(p)) {
+            if (sensorBeaconPair.distance() >= sensorBeaconPair.sensor.manhattanDistanceTo(p)) {
                 answer1++
                 break
             }
@@ -59,8 +59,8 @@ fun main() {
     for (y in 0L..4000000L) {
         var x = 0L
         while (x <= 4000000L) {
-            val p = Point(x, y)
-            val maxDiff = input.maxOf { it.distance() - it.sensor.distanceTo(p) }
+            val p = Point2D(x, y)
+            val maxDiff = input.maxOf { it.distance() - it.sensor.manhattanDistanceTo(p) }
             if (maxDiff == -1L) {
                 answer2 = BigInteger.valueOf(x) * BigInteger.valueOf(4000000) + BigInteger.valueOf(y)
                 break
@@ -75,13 +75,6 @@ fun main() {
     println(answer2)
 }
 
-data class SensorBeaconPair(val sensor: Point, val beacon: Point) {
-    fun distance(): Long {
-        return abs(sensor.x - beacon.x) + abs(sensor.y - beacon.y)
-    }
-}
-data class Point(val x: Long, val y: Long) {
-    fun distanceTo(other: Point): Long {
-        return abs(x - other.x) + abs(y - other.y)
-    }
+data class SensorBeaconPair(val sensor: Point2D, val beacon: Point2D) {
+    fun distance() = sensor.manhattanDistanceTo(beacon)
 }
