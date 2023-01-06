@@ -1,5 +1,8 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
-    .lines()
+package nl.erwinolie.`Advent-of-Code-2022`.`04 - Camp Cleanup`
+
+import nl.erwinolie.extensions.input
+
+val input = input().lines()
     .map { it.split(',').map { it.split('-').map { it.toInt() } } }
     .map { Pair(it[0][0]..it[0][1], it[1][0]..it[1][1]) }
 
