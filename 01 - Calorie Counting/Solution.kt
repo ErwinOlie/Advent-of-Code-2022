@@ -1,7 +1,9 @@
-val input = object {}.javaClass.getResource("input.txt")!!.readText()
+package nl.erwinolie.`Advent-of-Code-2022`.`01 - Calorie Counting`
+
+import nl.erwinolie.extensions.input
 
 fun main() {
-    val calories = input
+    val calories = input()
         .split("\\R\\R".toRegex())
         .map {
             it.split("\\R".toRegex())
